@@ -83,13 +83,13 @@ Preprocesses raw data, drops rows with missing created_date (the data did not sh
 The rest of the columns with missing or null values were ignored as they were not specific to this data challenge.
 Detailed picture of the functions:
 Functions:
-- ### def preprocess_data(input_file, output_file, geocode_missing=False):
+- #### def preprocess_data(input_file, output_file, geocode_missing=False):
 The main preprocessing function handles missing values, validates key columns, and saves the cleaned dataset. It loads raw data, validates columns with defined actions (e.g., drop, fill, or validate_geo), and prints dataset stats before and after processing. Finally, it saves the cleaned data and returns a pandas dataframe.
-- ### def handle_missing_values(df, column, action, *args, geocode_missing=False):
+- #### def handle_missing_values(df, column, action, *args, geocode_missing=False):
 Handles missing values in a column based on the specified action: drop rows, fill with a value, or validate latitude/longitude (drop, impute, or geocode). Modifies the DataFrame in place.
-- ### def validate_geospatial(df, geocode_missing):
+- #### def validate_geospatial(df, geocode_missing):
 Validates latitude and longitude by handling missing values: drops rows (<1% missing), geocodes if enabled, or imputes with borough medians. Modifies the DataFrame in place.
-- ### def geocode_missing_coordinates(df):
+- #### def geocode_missing_coordinates(df):
 Uses the geocoder library to fill missing latitude and longitude using the incident_address. Counts missing values, attempts geocoding for each row, updates coordinates if successful, and prints geocoding results. Modifies the DataFrame in place.
 
 ### aggregation.py
