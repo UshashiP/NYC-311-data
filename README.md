@@ -56,6 +56,7 @@ Place the shapefile folder in the 'data' directory (data/nta_shapefile/)
 
 ## How to Run the Project
 To execute the pipeline, simply run:
+
 python main.py from your teminal or bash
 
 ## Outputs Generated
