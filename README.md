@@ -24,7 +24,7 @@ This project processes and analyzes NYC 311 service request data to generate ins
 ---
 
 ## **Directory Structure**
-```plaintext
+```
 NYC311_DataChallenge/
 ├── data/                   # Stores fetched, preprocessed, aggregated data, and outputs (plots, maps)
 ├── main.py                 # Main script to run the project
