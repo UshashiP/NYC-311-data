@@ -1,3 +1,12 @@
+## Table of Contents
+- [Project Overview](#project-overview)
+- [Directory Structure](#directory-structure)
+- [Setup Instructions](#setup-instructions)
+- [How to Run the Project](#how-to-run-the-project)
+- [Project Details](#project-details)
+
+
+
 NYC311 Data Challenge
 Project Overview
 This project processes and analyzes NYC 311 service request data to generate insights and visualizations. The workflow includes data fetching, preprocessing, aggregation, visualization, and spatial analysis, culminating in interactive maps and plots.
