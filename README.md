@@ -55,8 +55,8 @@ pip install -r requirements.txt
 Place the shapefile folder in the 'data' directory (data/nta_shapefile/)
 
 ## How to Run the Project
-- To execute the pipeline, simply run:
-- python main.py from your teminal or bash
+To execute the pipeline, simply run:
+python main.py from your teminal or bash
 
 ## Outputs Generated
 - Raw Data: data/raw.csv
