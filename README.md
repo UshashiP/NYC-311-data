@@ -99,7 +99,7 @@ Preprocesses raw data, drops rows with missing created_date (the data did not sh
 The rest of the columns with missing or null values were ignored as they were not specific to this data challenge.
 Detailed picture of the functions:
 Functions:
-### def preprocess_data(input_file, output_file, geocode_missing=False):
+- ### def preprocess_data(input_file, output_file, geocode_missing=False):
 Purpose
 This is the main function that orchestrates the preprocessing of raw 311 data. It handles missing values, validates essential columns, and saves the cleaned dataset.
 Loads raw data from the specified CSV file and print the dataset's initial shape and missing values.
@@ -108,7 +108,7 @@ Iterates through the columns and handle missing values based on the specified ac
 Prints the final shape and missing values after preprocessing.
 Saves the cleaned data to the specified output path.
 Returns a cleaned pandas.DataFrame.
-### def handle_missing_values(df, column, action, *args, geocode_missing=False):
+- ### def handle_missing_values(df, column, action, *args, geocode_missing=False):
 Purpose
 Handles missing values for a specific column based on the provided action.
 Counts the number of missing values in the column.
@@ -117,7 +117,7 @@ drop: Drop rows with missing values in the column.
 fill: Fill missing values with the specified fill value.
 validate_geo: Validate latitude and longitude, either dropping, imputing, or geocoding missing values.
 Returns none (modifies the DataFrame in place).
-# def validate_geospatial(df, geocode_missing):
+### def validate_geospatial(df, geocode_missing):
 Purpose
 Validates the latitude and longitude columns, handling missing values either by dropping rows, imputing with borough averages, or geocoding.
 Calculates the percentage of missing coordinates.
@@ -128,7 +128,7 @@ Attempts geocoding using the incident_address column.
 Otherwise:
 Imputes missing values using the median latitude and longitude of the respective borough.
 Returns none (modifies the DataFrame in place).
-# def geocode_missing_coordinates(df):
+### def geocode_missing_coordinates(df):
 Purpose
 Uses the geocoder library to fill missing latitude and longitude values based on the incident_address column.
 Counts and prints the number of missing values for latitude and longitude.
