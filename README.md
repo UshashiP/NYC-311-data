@@ -1,9 +1,45 @@
-## Table of Contents
+# **NYC311 Data Challenge**
+
+## **Table of Contents**
 - [Project Overview](#project-overview)
 - [Directory Structure](#directory-structure)
 - [Setup Instructions](#setup-instructions)
 - [How to Run the Project](#how-to-run-the-project)
-- [Project Details](#project-details)
+- [Outputs Generated](#outputs-generated)
+- [Script Details](#script-details)
+  - [main.py](#mainpy)
+  - [etl.py](#etlpy)
+  - [utils.py](#utilspy)
+  - [data_preprocessing.py](#data_preprocessingpy)
+  - [aggregation.py](#aggregationpy)
+  - [visualization.py](#visualizationpy)
+  - [spatialdata_processing.py](#spatialdata_processingpy)
+- [Assumptions](#assumptions)
+
+---
+
+## **Project Overview**
+This project processes and analyzes NYC 311 service request data to generate insights and visualizations. The workflow includes data fetching, preprocessing, aggregation, visualization, and spatial analysis, culminating in interactive maps and plots.
+
+The code is modular, reusable, and easy to run, adhering to DRY principles.
+
+---
+
+## **Directory Structure**
+```plaintext
+NYC311_DataChallenge/
+├── data/                   # Stores fetched, preprocessed, aggregated data, and outputs (plots, maps)
+├── main.py                 # Main script to run the project
+├── README.md               # Project documentation
+├── requirements.txt        # Python dependencies
+├── scripts/                # Contains modular scripts for each task
+│   ├── utils.py            # Utility functions (setup data directory)
+│   ├── etl.py              # Fetches data from NYC 311 API
+│   ├── data_preprocessing.py # Preprocesses raw data and handles missing values
+│   ├── aggregation.py      # Aggregates data by date, hour, and complaint type
+│   ├── visualization.py    # Creates interactive multi-line plots
+│   ├── spatialdata_processing.py # Generates interactive choropleth maps
+├── NYC_data_challenge/     # Virtual environment folder
 
 
 
