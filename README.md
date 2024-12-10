@@ -43,27 +43,27 @@ NYC311_DataChallenge/
 
 ## **Setup Instructions**
 ### Step 1: Clone the Repository
-git clone https://github.com/UshashiP/NYC_DataChallenge.git
-cd NYC311_DataChallenge
+- git clone https://github.com/UshashiP/NYC_DataChallenge.git
+- cd NYC311_DataChallenge
 ### Step 2: Create a Virtual Environment
-python -m venv NYC_data_challenge
-source NYC_data_challenge/bin/activate   # On Mac/Linux
-NYC_data_challenge\Scripts\activate      # On Windows
+- python -m venv NYC_data_challenge
+- source NYC_data_challenge/bin/activate   # On Mac/Linux
+- NYC_data_challenge\Scripts\activate      # On Windows
 ### Step 3: Install Dependencies
 pip install -r requirements.txt
 ### Step 4: Place Shapefile for NTAs
 Place the shapefile folder in the 'data' directory (data/nta_shapefile/)
 
 ## How to Run the Project
-To execute the pipeline, simply run:
-python main.py from your teminal or bash
+- To execute the pipeline, simply run:
+- python main.py from your teminal or bash
 
 ## Outputs Generated
-Raw Data: data/raw.csv
-Preprocessed Data: data/preprocessed.csv
-Aggregated Data: data/aggregated.csv
-Interactive Plot: data/interactive_visualization.html
-Interactive Choropleth Map: data/interactive_choropleth_plotly.html
+- Raw Data: data/raw.csv
+- Preprocessed Data: data/preprocessed.csv
+- Aggregated Data: data/aggregated.csv
+- Interactive Plot: data/interactive_visualization.html
+- Interactive Choropleth Map: data/interactive_choropleth_plotly.html
 
 ## Script Details
 main.py
