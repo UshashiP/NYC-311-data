@@ -100,7 +100,6 @@ The rest of the columns with missing or null values were ignored as they were no
 Detailed picture of the functions:
 Functions:
 - ### def preprocess_data(input_file, output_file, geocode_missing=False):
-Purpose
 This is the main function that orchestrates the preprocessing of raw 311 data. It handles missing values, validates essential columns, and saves the cleaned dataset.
 Loads raw data from the specified CSV file and print the dataset's initial shape and missing values.
 Defines a list of columns to validate and their respective actions (drop, fill, or validate_geo).
@@ -109,7 +108,6 @@ Prints the final shape and missing values after preprocessing.
 Saves the cleaned data to the specified output path.
 Returns a cleaned pandas.DataFrame.
 - ### def handle_missing_values(df, column, action, *args, geocode_missing=False):
-Purpose
 Handles missing values for a specific column based on the provided action.
 Counts the number of missing values in the column.
 Based on the action:
@@ -118,7 +116,6 @@ fill: Fill missing values with the specified fill value.
 validate_geo: Validate latitude and longitude, either dropping, imputing, or geocoding missing values.
 Returns none (modifies the DataFrame in place).
 - ### def validate_geospatial(df, geocode_missing):
-Purpose
 Validates the latitude and longitude columns, handling missing values either by dropping rows, imputing with borough averages, or geocoding.
 Calculates the percentage of missing coordinates.
 If missing coordinates are less than 1% of the dataset:
@@ -129,7 +126,6 @@ Otherwise:
 Imputes missing values using the median latitude and longitude of the respective borough.
 Returns none (modifies the DataFrame in place).
 - ### def geocode_missing_coordinates(df):
-Purpose
 Uses the geocoder library to fill missing latitude and longitude values based on the incident_address column.
 Counts and prints the number of missing values for latitude and longitude.
 Iterates through rows with missing coordinates:
@@ -164,7 +160,7 @@ Outputs data/interactive_choropleth_plotly.html.
 ---
 
 ## Assumptions
-Dynamic Dataset: Fetches data for the most recent 7 days dynamically, ensuring up-to-date insights.
-Missing Values: Handles missing coordinates by dropping rows (<1%) or imputing using geocoding or borough averages.
-Complaint Type: The choropleth map focuses on specific complaint types, e.g., "HEAT/HOT WATER."
+- Dynamic Dataset: Fetches data for the most recent 7 days dynamically, ensuring up-to-date insights.
+- Missing Values: Handles missing coordinates by dropping rows (<1%) or imputing using geocoding or borough averages.
+- Complaint Type: The choropleth map focuses on specific complaint types, e.g., "HEAT/HOT WATER."
 
