@@ -54,10 +54,14 @@ pip install -r requirements.txt
 ### Step 4: Place Shapefile for NTAs
 Place the shapefile folder in the 'data' directory (data/nta_shapefile/)
 
+---
+
 ## How to Run the Project
 To execute the pipeline, simply run:
 
 python main.py from your teminal or bash
+
+---
 
 ## Outputs Generated
 - Raw Data: data/raw.csv
@@ -65,9 +69,11 @@ python main.py from your teminal or bash
 - Aggregated Data: data/aggregated.csv
 - Interactive Plot: data/interactive_visualization.html
 - Interactive Choropleth Map: data/interactive_choropleth_plotly.html
+  
+---
 
 ## Script Details
-main.py
+### main.py
 The entry point of the project orchestrates all steps:
 
 Sets up the data directory.
@@ -76,26 +82,89 @@ Preprocesses the raw data.
 Aggregates data for analysis.
 Generates an interactive plot of complaint trends.
 Creates an interactive choropleth map for a specific complaint type.
-etl.py
+
+### etl.py
 Fetches NYC 311 service request data for the last 7 days. Saves the raw data as data/raw.csv.
+Class: NYC311ETL-This class encapsulates the logic for extracting and saving NYC 311 service request data.
+Initialization (__init__):Input: data_dir (Path or string)
+Specifies where the fetched data will be stored. Creates the directory (data) if it doesn’t already exist. Ensures the script can save output files in the specified location.
+Method: fetch_data(): Fetches raw service request data from the API for the last n days and saves it as a CSV file.
 
-utils.py
-Contains utility functions, such as creating the data directory.
+### utils.py
+Contains utility function. Identifies the root directory of the project.
+setup_data_directory(): Ensures the 'data' directory is created.
 
-data_preprocessing.py
-Preprocesses raw data, handling missing values, geocoding, and validation. Outputs data/preprocessed.csv.
+### data_preprocessing.py
+Preprocesses raw data, drops rows with missing created_date (the data did not showcase any missing created_date for all the runs),fills missing complaint_type with "Unknown", handles missing latitude and longitude: drops rows with missing coordinates (<1%)geocoding, geocodes addresses if specified (geocode_missing=True), fills missing coordinates with borough averages if geocoding fails and validation. Outputs to data/preprocessed.csv.
+The rest of the columns with missing or null values were ignored as they were not specific to this data challenge.
+Detailed picture of the functions:
+Functions:
+### def preprocess_data(input_file, output_file, geocode_missing=False):
+Purpose
+This is the main function that orchestrates the preprocessing of raw 311 data. It handles missing values, validates essential columns, and saves the cleaned dataset.
+Loads raw data from the specified CSV file and print the dataset's initial shape and missing values.
+Defines a list of columns to validate and their respective actions (drop, fill, or validate_geo).
+Iterates through the columns and handle missing values based on the specified action.
+Prints the final shape and missing values after preprocessing.
+Saves the cleaned data to the specified output path.
+Returns a cleaned pandas.DataFrame.
+### def handle_missing_values(df, column, action, *args, geocode_missing=False):
+Purpose
+Handles missing values for a specific column based on the provided action.
+Counts the number of missing values in the column.
+Based on the action:
+drop: Drop rows with missing values in the column.
+fill: Fill missing values with the specified fill value.
+validate_geo: Validate latitude and longitude, either dropping, imputing, or geocoding missing values.
+Returns none (modifies the DataFrame in place).
+# def validate_geospatial(df, geocode_missing):
+Purpose
+Validates the latitude and longitude columns, handling missing values either by dropping rows, imputing with borough averages, or geocoding.
+Calculates the percentage of missing coordinates.
+If missing coordinates are less than 1% of the dataset:
+Drops rows with missing coordinates.
+If geocode_missing is True:
+Attempts geocoding using the incident_address column.
+Otherwise:
+Imputes missing values using the median latitude and longitude of the respective borough.
+Returns none (modifies the DataFrame in place).
+# def geocode_missing_coordinates(df):
+Purpose
+Uses the geocoder library to fill missing latitude and longitude values based on the incident_address column.
+Counts and prints the number of missing values for latitude and longitude.
+Iterates through rows with missing coordinates:
+For each row, use the incident_address to fetch latitude and longitude.
+If geocoding is successful, update the row with the fetched coordinates.
+Print a message indicating success or failure for each row.
+Prints the final count of missing values after geocoding.
+Returns none (modifies the DataFrame in place).
 
-aggregation.py
+### aggregation.py
 Aggregates data by created_date_hour and complaint_type. Outputs data/aggregated.csv.
+The task explicitly suggests creating a column named created_date_hour, implying aggregation at the hour level. Following this guideline ensures consistency with the expectations of the challenge. Including minutes, seconds, and milliseconds makes the visualization extremely messy, especially for time-series plots. By grouping data into hourly intervals, patterns and trends became more apparent and easier to interpret.
 
-visualization.py
-Creates an interactive multi-line plot of complaint trends over time. Outputs data/interactive_visualization.html.
+### visualization.py
+Generates an interactive multi-line plot of complaint trends over time.
+The visualize_data() function generates an interactive multi-line time-series plot using aggregated data. It reads the input CSV file, validates necessary columns, converts the time column to a datetime format, and creates a Plotly line chart where each line represents a different complaint_type. The plot is saved as an HTML file, allowing users to interact with it, hover over data points, and analyze complaint trends over time. Outputs data/interactive_visualization.html.
 
-spatialdata_processing.py
-Generates an interactive choropleth map of complaints by neighborhood. Outputs data/interactive_choropleth_plotly.html.
+### spatialdata_processing.py
+The spatial_processing function generates an interactive choropleth map to visualize complaint counts by Neighborhood Tabulation Area (NTA). Using preprocessed 311 data and NTA shapefiles, it processes the data spatially, aggregates complaints by neighborhood, and outputs the map in an interactive HTML format using Folium. 
+Key steps:
+- Loads Preprocessed Data: Reads the cleaned data and verifies the presence of latitude and longitude columns.
+- Filters by Complaint Type: Extracts only the rows corresponding to the specified complaint type.
+- Creates GeoDataFrame: Converts filtered data into a GeoDataFrame for spatial operations.
+- Reprojects Data: Ensures spatial consistency by reprojecting the data to match the CRS of the NTA shapefile.
+- Spatial Join: Associates each complaint with its corresponding NTA using a spatial join.
+- Aggregate Counts: Aggregates complaint counts for each NTA.
+- Merge with NTA Boundaries: Merges the aggregated counts back into the NTA shapefile for visualization.
+- Reprojects to WGS84: Converts the data to WGS84 (required for Folium compatibility).
+- Creates Map: Adds a choropleth layer to show complaint counts using color gradients.
+Outputs data/interactive_choropleth_plotly.html.
 
-Assumptions
+---
+
+## Assumptions
 Dynamic Dataset: Fetches data for the most recent 7 days dynamically, ensuring up-to-date insights.
-Missing Values: Handles missing coordinates by dropping rows (<1%) or imputing using borough averages.
+Missing Values: Handles missing coordinates by dropping rows (<1%) or imputing using geocoding or borough averages.
 Complaint Type: The choropleth map focuses on specific complaint types, e.g., "HEAT/HOT WATER."
 
