@@ -117,7 +117,7 @@ drop: Drop rows with missing values in the column.
 fill: Fill missing values with the specified fill value.
 validate_geo: Validate latitude and longitude, either dropping, imputing, or geocoding missing values.
 Returns none (modifies the DataFrame in place).
-### def validate_geospatial(df, geocode_missing):
+- ### def validate_geospatial(df, geocode_missing):
 Purpose
 Validates the latitude and longitude columns, handling missing values either by dropping rows, imputing with borough averages, or geocoding.
 Calculates the percentage of missing coordinates.
@@ -128,7 +128,7 @@ Attempts geocoding using the incident_address column.
 Otherwise:
 Imputes missing values using the median latitude and longitude of the respective borough.
 Returns none (modifies the DataFrame in place).
-### def geocode_missing_coordinates(df):
+- ### def geocode_missing_coordinates(df):
 Purpose
 Uses the geocoder library to fill missing latitude and longitude values based on the incident_address column.
 Counts and prints the number of missing values for latitude and longitude.
